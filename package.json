@@ -1,0 +1,21 @@
+{
+  "name": "project_playwright_playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.11.0",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "allure-commandline": "^2.34.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13",
+    "moment": "^2.30.1"
+  }
+}

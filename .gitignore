@@ -1,0 +1,14 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+pnpm-lock.yaml
+pnpm-debug.log
+playwright-report/
+allure-results/
+allure-report/
+playground/
+tsconfig.json
