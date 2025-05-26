@@ -1,44 +1,36 @@
-# ตั้งชื่อ workflow นี้ (แสดงผลใน GitHub Actions)
-name: Playwright Tests and Deploy Allure Report
+name: Run Playwright & Deploy Allure Report
 
-# ตั้ง trigger: ให้รัน workflow นี้เมื่อเกิดเหตุการณ์ดังต่อไปนี้
 on:
   push:
     branches:
-      - main # ✅ รันเมื่อมีการ push เข้ามาใน branch 'main' (เช่น merge PR แล้ว)
-  pull_request:
-    branches:
-      - main # ✅ รันเมื่อมีการเปิดหรืออัปเดต PR ที่จะ merge เข้า branch 'main'
+      - main
 
 jobs:
-  test_and_deploy: # ✅ ตั้งชื่อ job ว่า test_and_deploy
-    runs-on: ubuntu-latest # ✅ เปลี่ยนจาก ubuntu-latest → ใช้ Windows runner แทน (ตามที่คุณใช้ใน local)
+  test-and-deploy:
+    runs-on: ubuntu-latest
 
-    steps: # ✅ เริ่มขั้นตอนการทำงานใน job นี้
-      - name: Checkout code # ✅ ดึงซอร์สโค้ดจาก repository มาไว้ในเครื่อง runner
-        uses: actions/checkout@v3 # ✅ ใช้ GitHub Action สำเร็จรูปในการ checkout code
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js 18 # ✅ ติดตั้ง Node.js เวอร์ชัน 18 บน runner
-        uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: 20
 
-      - name: Install dependencies (pnpm) # ✅ ใช้ pnpm ติดตั้ง dependencies จาก package.json
+      - name: Install dependencies
         run: pnpm install
 
-      - name: Run Playwright tests and generate Allure report # ✅ สั่งรันทดสอบ + สร้าง Allure report
+      - name: Run Playwright tests
+        run: pnpm exec playwright test
+
+      - name: Generate Allure Report
         run: |
-          pnpm exec playwright test --reporter=allure-playwright
           pnpm exec allure generate allure-results --clean -o allure-report
+          touch allure-report/.nojekyll
 
-      - name: Upload Allure report artifact (backup) # ✅ เก็บ report เป็น artifact เพื่อดาวน์โหลดได้ภายหลัง (optional)
-        uses: actions/upload-artifact@v3
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: allure-report # ✅ ตั้งชื่อ artifact ว่า "allure-report"
-          path: allure-report # ✅ ระบุ path ที่จะเก็บไฟล์ zip ไป
-
-      - name: Deploy Allure report to GitHub Pages # ✅ ใช้ Action peaceiris สำหรับ deploy ไปยัง gh-pages branch
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # ✅ ใช้ token ที่ GitHub เตรียมไว้ให้ (ไม่ต้องสร้างเอง)
-          publish_dir: ./allure-report # ✅ โฟลเดอร์ที่ต้องการ publish ขึ้นเว็บ (GitHub Pages)
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
