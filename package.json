@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
-  "test": "pnpm exec playwright test",
-  "report": "pnpm exec allure generate allure-results --clean -o allure-report",
-  "report:open": "powershell -Command \"Start-Process cmd -ArgumentList '/c','pnpm exec allure open allure-report'\"",
-  "report:playwright": "powershell -Command \"Start-Process cmd -ArgumentList '/c','pnpm exec playwright show-report'\"",
-  "test:allure": "pnpm run test && pnpm run report && pnpm run report:open && pnpm run report:playwright"
-},
+  "scripts": {
+    "test": "powershell -Command \"Remove-Item -Recurse -Force allure-results, allure-report -ErrorAction SilentlyContinue; pnpm exec playwright test\"",
+    "report": "pnpm exec allure generate allure-results --clean -o allure-report",
+    "report:open": "powershell -Command \"Start-Process cmd -ArgumentList '/c','pnpm exec allure open allure-report'\"",
+    "report:playwright": "powershell -Command \"Start-Process cmd -ArgumentList '/c','pnpm exec playwright show-report'\"",
+    "test:allure": "powershell -Command \"Remove-Item -Recurse -Force allure-results, allure-report -ErrorAction SilentlyContinue; pnpm run test; pnpm run report; pnpm run report:open; pnpm run report:playwright\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

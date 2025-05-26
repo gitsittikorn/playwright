@@ -18,6 +18,9 @@ test(
     travelSummary,
     commonTQM,
   }) => {
+    const currentRetry = test.info().retry;
+    console.log(`Test run count: ${currentRetry + 1}`);
+
     await travelIndex.goto(data.travelSearchWizard);
     // await travelIndex.searchTravel(data.travelSearchWizard);
     // await expect(page).toHaveURL(

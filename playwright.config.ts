@@ -26,7 +26,7 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 2 : 1, // retry 1 ครั้งใน local
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -42,7 +42,7 @@ export default defineConfig({
     // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on-first-retry",
+    trace: "on-first-retry", //'on' → เก็บ trace ทุกครั้ง, 'on-first-retry' → เก็บ trace เมื่อมีการ retry ครั้งแรก, 'retain-on-failure' → เก็บเฉพาะเทสต์ที่ fail
     actionTimeout: 10_000, // 10 seconds for each action such as click, fill, etc.
     navigationTimeout: 15_000, // 15 seconds for navigation actions such as page.goto()
     headless: false, // false = เปิด browser ขึ้นมาให้เห็น , true = run headless

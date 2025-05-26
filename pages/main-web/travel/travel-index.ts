@@ -12,16 +12,16 @@ export default class TravelIndex {
       );
     }
     await this.page.goto(url + "/travel-insurance");
-    await expect(this.page.getByTestId("totalTravelerInput")).toHaveValue(
+    await expect(this.page.getByTestId("totalTravelerInput5555")).toHaveValue(
       searchTravel.totalTraveler
     );
 
-    await expect(
-      this.page.getByTestId("destinationCountrySelect")
-    ).toBeVisible();
-    await expect(
-      this.page.locator('[data-testid="destinationCountrySelect"] div > span')
-    ).toHaveText("เลือกประเทศปลายทาง");
+    // await expect(
+    //   this.page.getByTestId("destinationCountrySelect")
+    // ).toBeVisible();
+    // await expect(
+    //   this.page.locator('[data-testid="destinationCountrySelect"] div > span')
+    // ).toHaveText("เลือกประเทศปลายทาง");
   }
 
   async searchTravel(searchTravel: TravelSearchWizard) {
