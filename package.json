@@ -1,0 +1,31 @@
+{
+  "name": "project_playwright_playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+"scripts": {
+  "test": "pnpm exec playwright test",
+  "report": "pnpm exec allure generate allure-results --clean -o allure-report",
+  "report:open": "powershell -Command \"Start-Process cmd -ArgumentList '/c','pnpm exec allure open allure-report'\"",
+  "report:playwright": "powershell -Command \"Start-Process cmd -ArgumentList '/c','pnpm exec playwright show-report'\"",
+  "test:allure": "pnpm run test && pnpm run report && pnpm run report:open && pnpm run report:playwright"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.11.0",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.21",
+    "allure-commandline": "^2.34.0",
+    "allure-playwright": "^3.2.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "undici-types": "^7.10.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.5.0",
+    "moment": "^2.30.1"
+  }
+}
