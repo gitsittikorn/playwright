@@ -42,7 +42,7 @@ export default defineConfig({
     // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on-first-retry",
+    trace: "on", // 'on' = always, 'on-first-retry' = only on first retry, 'off' = never
     actionTimeout: 10_000, // 10 seconds for each action such as click, fill, etc.
     navigationTimeout: 15_000, // 15 seconds for navigation actions such as page.goto()
     headless: false, // false = เปิด browser ขึ้นมาให้เห็น , true = run headless
