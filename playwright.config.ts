@@ -45,7 +45,7 @@ export default defineConfig({
     trace: "on", // 'on' = always, 'on-first-retry' = only on first retry, 'off' = never
     actionTimeout: 10_000, // 10 seconds for each action such as click, fill, etc.
     navigationTimeout: 15_000, // 15 seconds for navigation actions such as page.goto()
-    headless: false, // false = เปิด browser ขึ้นมาให้เห็น , true = run headless
+    headless: true, // false = เปิด browser ขึ้นมาให้เห็น , true = run headless
     screenshot: "on", //  'off' = ไม่ถ่ายภาพเลย, 'on' = ถ่ายภาพทุก step , 'only-on-failure' = ถ่ายเฉพาะเมื่อเทสต์ล้มเหลว (แนะนำ)
     video: "on", // (optional) ถ้าอยากได้ video ด้วย  , retain-on-failure = ถ่ายเฉพาะเมื่อเทสต์ล้มเหลว (แนะนำ)
   },
