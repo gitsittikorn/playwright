@@ -60,30 +60,30 @@ export default defineConfig({
       name: "Desktop - Google Chrome",
       use: { ...devices["Desktop Chrome"], channel: "chrome" },
     },
-    // {
-    //   name: "Mobile Chrome",
-    //   use: { ...devices["Pixel 5"] },
-    // },
-    // {
-    //   name: "Mobile Safari",
-    //   use: { ...devices["iPhone 12"] },
-    // },
-    // {
-    //   name: "Desktop - chromium",
-    //   use: { ...devices["Desktop Chrome"] },
-    // },
-    // {
-    //   name: "Desktop - safari",
-    //   use: { ...devices["Desktop Safari"] },
-    // },
-    // {
-    //   name: "Desktop - Microsoft Edge",
-    //   use: { ...devices["Desktop Edge"], channel: "msedge" },
-    // },
-    // {
-    //   name: "Desktop - firefox",
-    //   use: { ...devices["Desktop Firefox"] },
-    // },
+    {
+      name: "Mobile Chrome",
+      use: { ...devices["Pixel 5"] },
+    },
+    {
+      name: "Mobile Safari",
+      use: { ...devices["iPhone 12"] },
+    },
+    {
+      name: "Desktop - chromium",
+      use: { ...devices["Desktop Chrome"] },
+    },
+    {
+      name: "Desktop - safari",
+      use: { ...devices["Desktop Safari"] },
+    },
+    {
+      name: "Desktop - Microsoft Edge",
+      use: { ...devices["Desktop Edge"], channel: "msedge" },
+    },
+    {
+      name: "Desktop - firefox",
+      use: { ...devices["Desktop Firefox"] },
+    },
   ],
 
   /* Run your local dev server before starting the tests */
