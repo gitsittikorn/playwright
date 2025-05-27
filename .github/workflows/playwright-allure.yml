@@ -35,11 +35,10 @@ jobs:
           pnpm exec allure generate allure-results --clean -o allure-report
           touch allure-report/.nojekyll
 
-      - name: Set date variable (UTC+7)
+      - name: Set date variable (UTC+7, format dd-MM-yyyy_HH-mm-ss)
         id: date
         run: |
-          # ตั้ง timezone เป็น Asia/Bangkok (UTC+7)
-          DATE=$(TZ=Asia/Bangkok date +'%Y-%m-%d-%H%M%S')
+          DATE=$(TZ=Asia/Bangkok date +'%d-%m-%Y_%H-%M-%S')
           echo "date=$DATE" >> $GITHUB_OUTPUT
 
       - name: Checkout 'report' branch
@@ -53,18 +52,71 @@ jobs:
           mkdir -p report-branch/run-${{ steps.date.outputs.date }}
           cp -r allure-report/* report-branch/run-${{ steps.date.outputs.date }}
 
-      - name: Update index.html to include all runs
+      - name: Update index.html to include all runs with styled CSS
         run: |
           cd report-branch
-          # เริ่มเขียน index.html ใหม่ (เก็บ header)
-          echo "<html><body><h1>Allure Reports</h1><ul>" > index.html
+          cat > index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>Allure Reports Archive</title>
+            <style>
+              body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+                  Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+                background-color: #f7f9fc;
+                color: #333;
+                margin: 2rem;
+              }
+              h1 {
+                color: #2e85ff;
+                margin-bottom: 1rem;
+              }
+              ul {
+                list-style: none;
+                padding: 0;
+                max-width: 600px;
+                margin: 0 auto;
+              }
+              li {
+                background: white;
+                margin-bottom: 0.5rem;
+                border-radius: 6px;
+                box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+                transition: box-shadow 0.3s ease;
+              }
+              li:hover {
+                box-shadow: 0 4px 12px rgb(46 133 255 / 0.4);
+              }
+              a {
+                display: block;
+                padding: 1rem 1.5rem;
+                text-decoration: none;
+                color: #2e85ff;
+                font-weight: 600;
+                font-size: 1.1rem;
+              }
+              a:hover {
+                background-color: #e6f0ff;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>Allure Reports Archive</h1>
+            <ul>
+          EOF
 
-          # ลิสต์โฟลเดอร์ run-* และเรียงย้อนเวลาล่าสุดก่อน
           for d in $(ls -d run-* | sort -r); do
-            echo "<li><a href=\"${d}/index.html\">${d}</a></li>" >> index.html
+            echo "    <li><a href=\"${d}/index.html\">${d}</a></li>" >> index.html
           done
 
-          echo "</ul></body></html>" >> index.html
+          cat >> index.html << 'EOF'
+            </ul>
+          </body>
+          </html>
+          EOF
 
       - name: Deploy to GitHub Pages (branch 'report')
         uses: peaceiris/actions-gh-pages@v4
