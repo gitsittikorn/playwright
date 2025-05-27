@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","2325","travel-normal-flow","Desktop - Google Chrome","Tue May 27 05:27:39 UTC 2025","passed","Tue May 27 05:27:41 UTC 2025","","main-web/travel/travel-normal-flow.spec.ts","",""
