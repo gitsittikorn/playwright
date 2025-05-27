@@ -35,9 +35,12 @@ jobs:
           pnpm exec allure generate allure-results --clean -o allure-report
           touch allure-report/.nojekyll
 
-      - name: Set date variable
+      - name: Set date variable (UTC+7)
         id: date
-        run: echo "date=$(date +'%Y-%m-%d-%H%M%S')" >> "$GITHUB_OUTPUT"
+        run: |
+          # ตั้ง timezone เป็น Asia/Bangkok (UTC+7)
+          DATE=$(TZ=Asia/Bangkok date +'%Y-%m-%d-%H%M%S')
+          echo "date=$DATE" >> $GITHUB_OUTPUT
 
       - name: Checkout 'report' branch
         uses: actions/checkout@v4
@@ -45,23 +48,27 @@ jobs:
           ref: report
           path: report-branch
 
-      - name: Copy report to report branch folder
+      - name: Copy report to timestamped folder
         run: |
           mkdir -p report-branch/run-${{ steps.date.outputs.date }}
           cp -r allure-report/* report-branch/run-${{ steps.date.outputs.date }}
 
-      - name: Create/update index.html
+      - name: Update index.html to include all runs
         run: |
           cd report-branch
+          # เริ่มเขียน index.html ใหม่ (เก็บ header)
           echo "<html><body><h1>Allure Reports</h1><ul>" > index.html
+
+          # ลิสต์โฟลเดอร์ run-* และเรียงย้อนเวลาล่าสุดก่อน
           for d in $(ls -d run-* | sort -r); do
             echo "<li><a href=\"${d}/index.html\">${d}</a></li>" >> index.html
           done
+
           echo "</ul></body></html>" >> index.html
 
-      - name: Deploy to GitHub Pages (report branch)
+      - name: Deploy to GitHub Pages (branch 'report')
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./report-branch
-          publish_branch: report # ⭐ ใช้ branch "report"
+          publish_branch: report
