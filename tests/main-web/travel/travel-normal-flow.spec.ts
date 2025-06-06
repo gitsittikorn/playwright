@@ -19,36 +19,6 @@ test(
     commonTQM,
   }) => {
     await travelIndex.goto(data.travelSearchWizard);
-    //test 02
-    // await travelIndex.searchTravel(data.travelSearchWizard);
-    // await expect(page).toHaveURL(
-    //   process.env.MAIN_WEB_URL + "/travel-insurance/filter"
-    // );
-    // await travelSearchResult.filterByInsurrer(data.travelFilterSearchResult);
-    // await travelSearchResult.selectProduct();
-    // await travelProductDetail.getProductData(data.travelProductDetails);
-    // await travelProductDetail.getInsurePrice(data.travelProductDetails);
-    // await travelProductDetail.getInsureName(data.travelProductDetails);
-
-    // await travelFillForm.getProductData(data.travelProductDetails);
-    // await travelFillForm.getInsurePrice(data.travelProductDetails);
-    // await travelFillForm.section1(data.travelFillForms);
-    // await travelFillForm.section2(data.travelFillForms);
-    // await travelFillForm.section3(
-    //   data.travelSearchWizard,
-    //   data.travelFillForms
-    // );
-    // await travelSummary.checkAssuredDetail(data.travelFillForms);
-    // await travelSummary.checkContactAddress(data.travelFillForms);
-    // await travelSummary.checkFlightDetail(
-    //   data.travelSearchWizard,
-    //   data.travelFillForms
-    // );
-    // await travelSummary.checkPrice(
-    //   data.travelSearchWizard,
-    //   data.travelProductDetails
-    // );
-    // await commonTQM.init();
-    // await commonTQM.paymentCreditCard(page, data.travelFillForms);
+    //test 03
   }
 );

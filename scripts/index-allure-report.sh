@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# ลบโฟลเดอร์ run-* ที่เก่ากว่า 7 วัน (จากวันที่แก้ไขล่าสุด)
+find . -maxdepth 1 -type d -name "run-*" -mtime +7 -exec rm -rf {} +
+
+# สร้าง index.html
 cat > index.html << 'EOF'
 <!DOCTYPE html>
 <html lang="en">
@@ -60,10 +64,12 @@ cat > index.html << 'EOF'
   <ul>
 EOF
 
-for d in $(ls -d run-* | sort -r); do
+# เพิ่มรายการโฟลเดอร์ run-* ที่เหลืออยู่ (เรียงจากใหม่ไปเก่า)
+for d in $(ls -d run-* 2>/dev/null | sort -r); do
   echo "    <li><a href=\"${d}/index.html\">${d}</a></li>" >> index.html
 done
 
+# ปิด HTML
 cat >> index.html << 'EOF'
   </ul>
 </body>
