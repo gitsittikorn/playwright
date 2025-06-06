@@ -1,5 +1,22 @@
 #!/bin/bash
 
+# ลบโฟลเดอร์ run-* ที่อายุเกิน 7 วัน จากชื่อโฟลเดอร์
+for dir in run-*; do
+  if [[ -d "$dir" ]]; then
+    folder_date=$(echo "$dir" | grep -oP '\d{2}-\d{2}-\d{4}' | awk -F- '{print $3"-"$2"-"$1}')
+    if [[ -n "$folder_date" ]]; then
+      folder_timestamp=$(date -d "$folder_date" +%s)
+      limit_timestamp=$(date -d "7 days ago" +%s)
+
+      if (( folder_timestamp < limit_timestamp )); then
+        echo "Removing old report: $dir"
+        rm -rf "$dir"
+      fi
+    fi
+  fi
+done
+
+# สร้าง index.html
 cat > index.html << 'EOF'
 <!DOCTYPE html>
 <html lang="en">
@@ -60,10 +77,12 @@ cat > index.html << 'EOF'
   <ul>
 EOF
 
-for d in $(ls -d run-* | sort -r); do
+# เพิ่มรายการโฟลเดอร์ run-* ที่เหลืออยู่ (เรียงจากใหม่ไปเก่า)
+for d in $(ls -d run-* 2>/dev/null | sort -r); do
   echo "    <li><a href=\"${d}/index.html\">${d}</a></li>" >> index.html
 done
 
+# ปิด HTML
 cat >> index.html << 'EOF'
   </ul>
 </body>

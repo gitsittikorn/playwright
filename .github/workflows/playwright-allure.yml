@@ -52,7 +52,7 @@ jobs:
           mkdir -p report-branch/run-${{ steps.date.outputs.date }}
           cp -r allure-report/* report-branch/run-${{ steps.date.outputs.date }}
 
-      - name: Update index.html with script
+      - name: Update index.html and Cleanup old reports
         run: |
           cd report-branch
           bash ../scripts/index-allure-report.sh
