@@ -19,7 +19,7 @@ test(
     commonTQM,
   }) => {
     await travelIndex.goto(data.travelSearchWizard);
-    //test 01
+    //test 02
     // await travelIndex.searchTravel(data.travelSearchWizard);
     // await expect(page).toHaveURL(
     //   process.env.MAIN_WEB_URL + "/travel-insurance/filter"
