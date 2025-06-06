@@ -17,6 +17,7 @@
   "devDependencies": {
     "@playwright/test": "^1.52.0",
     "@types/node": "^22.15.21",
+    "@types/pg": "^8.15.2",
     "allure-commandline": "^2.34.0",
     "allure-playwright": "^3.2.2",
     "ts-node": "^10.9.2",
@@ -26,6 +27,7 @@
   "dependencies": {
     "dayjs": "^1.11.13",
     "dotenv": "^16.5.0",
-    "moment": "^2.30.1"
+    "moment": "^2.30.1",
+    "pg": "^8.16.0"
   }
 }
