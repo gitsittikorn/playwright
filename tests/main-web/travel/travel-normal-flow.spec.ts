@@ -19,6 +19,6 @@ test(
     commonTQM,
   }) => {
     await travelIndex.goto(data.travelSearchWizard);
-    //test 03
+    //test 04
   }
 );
